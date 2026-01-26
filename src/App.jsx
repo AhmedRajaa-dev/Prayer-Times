@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Prayer from './component/Prayer'
+import Header from './component/header';
 
 export default function App() {
   const [prayerTimes,setPrayerTimes]=useState({});
@@ -44,7 +45,8 @@ console.log(prayerTimes);
   }
 return (
     <>
-      <section className="h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 flex items-center ">
+    <Header/>
+      <section className="h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 flex items-center ">  
         <div className="container w-120 bg-white py-8 px-7 rounded-xl ml-[18%] ">
           <div className="top-section flex justify-between pb-10 border-b-1 mb-10">
             <div className="date w-64">
