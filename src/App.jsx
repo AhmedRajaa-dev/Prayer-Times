@@ -61,6 +61,7 @@ return (
               
               ))}
             </select>
+            
             </div>
           </div>
             <Prayer name={"Al-Fajr"} time={formatTime(prayerTimes.Fajr)}/>
