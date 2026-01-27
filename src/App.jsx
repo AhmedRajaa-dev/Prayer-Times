@@ -3,18 +3,27 @@ import Prayer from './component/Prayer'
 import Header from './component/header';
 
 export default function App() {
-  const [prayerTimes,setPrayerTimes]=useState({});
-  const [dateTime,setDateTime]=useState("");
-  const [city,setCity]=useState("Cairo");
-  const cities=[
-    {name:"Cairo",value:"Cairo"},
-    {name:"Alexandria",value:"Alexandria"},
-    {name:"Giza",value:"Giza"},
-    {name:"Mansoura",value:"Mansoura"},
-    {name:"Luxor",value:"Luxor"}
-  ];
-console.log(city);
-console.log(prayerTimes);
+   
+    const countriesWithCities = {
+        Egypt: ["Cairo", "Giza", "Alexandria", "Aswan"],
+        Palestine: ["Jerusalem", "Gaza", "Ramallah", "Nablus"],
+        SaudiArabia: ["Mecca", "Medina", "Riyadh", "Jeddah"],
+        Jordan: ["Amman", "Irbid", "Zarqa"],
+        Morocco: ["Rabat", "Casablanca", "Fes"]
+    };
+
+  const [selectCountry,setSelectCountry]=useState("");
+   const [prayerTimes,setPrayerTimes]=useState({});
+   const [dateTime,setDateTime]=useState("");
+   const [city,setCity]=useState("Cairo");
+  
+//console.log(city);
+//console.log(prayerTimes);
+const handleCountryChange = (country)=>{
+  setSelectCountry(country)
+}
+console.log(selectCountry);
+
 
   useEffect(()=>{
     const axiosPrayerTimes=async()=>{
@@ -40,12 +49,10 @@ console.log(prayerTimes);
     let period=hours>12?"PM":"AM";
     hours=hours%12 ||12;
     return `${hours}:${minutes<10?"0"+minutes:minutes} ${period}`
-
-
   }
 return (
     <>
-    <Header/>
+    <Header onCountryChange={handleCountryChange}/>
       <section className="h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 flex items-center ">  
         <div className="container w-120 bg-white py-8 px-7 rounded-xl ml-[18%] ">
           <div className="top-section flex justify-between pb-10 border-b-1 mb-10">
@@ -55,13 +62,12 @@ return (
             </div>
             <div className="city">  
             <h3 className="text-2xl" >City</h3>
-            <select name="" id=""  className="w-64 bg-slate-500 rounded-md outline-none py-1 px-2.5 text-xl mt-2" onChange={(e)=>setCity(e.target.value)}> 
-              {cities.map((city)=>(
-                <option key={city.value} value={city.value}>{city.name}</option>
+            <select name="" id="" className="w-64 bg-slate-500 rounded-md outline-none py-1 px-2.5 text-xl mt-2" onChange={(e)=>setCity(e.target.value)}> 
+              {countriesWithCities[selectCountry]?.map((city)=>(
+                <option key={city.value} value={city.value}>{city}</option>
               
               ))}
             </select>
-            
             </div>
           </div>
             <Prayer name={"Al-Fajr"} time={formatTime(prayerTimes.Fajr)}/>
